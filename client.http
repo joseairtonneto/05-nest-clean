@@ -1,5 +1,6 @@
 @baseUrl = http://localhost:3333
 @authToken = {{authenticate.response.body.access_token}}
+@editQuestionId = {{fetch_recent_questions.response.body.questions[0].id}}
 
 # @name create_account
 POST {{baseUrl}}/accounts
@@ -41,3 +42,16 @@ Authorization: Bearer {{authToken}}
 GET {{baseUrl}}/questions
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+###
+
+# @name edit_question
+PUT {{baseUrl}}/questions/{{editQuestionId}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "title": "Edit question",
+  "content": "Question content",
+  "attachmentsIds": []
+}

@@ -38,6 +38,7 @@ export default defineConfig([
 
     rules: {
       'no-new': 'off',
+      'no-explicit-any': 'warn',
 
       '@typescript-eslint/no-unused-vars': [
         'warn',

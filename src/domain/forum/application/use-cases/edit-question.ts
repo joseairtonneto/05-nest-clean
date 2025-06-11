@@ -49,7 +49,7 @@ export class EditQuestionUseCase {
 
     const questionAttachmentList = new QuestionAttachmentList(currentQuestionAttachments)
 
-    const questionAttachments = attachmentsIds.map((attachmentId) =>
+    const questionAttachments = attachmentsIds.map(attachmentId =>
       QuestionAttachment.create({
         attachmentId: new UniqueEntityID(attachmentId),
         questionId: question.id,

@@ -3,12 +3,12 @@ import { QuestionComment } from '../../enterprise/entities/question-comment'
 import { QuestionCommentsRepository } from '../repositories/question-comments-repository'
 import { Injectable } from '@nestjs/common'
 
-interface FetchQuestionCommentsQuestionUseCaseRequest {
+interface FetchQuestionCommentsUseCaseRequest {
   questionId: string
   page: number
 }
 
-type FetchQuestionCommentsQuestionUseCaseResponse = Either<
+type FetchQuestionCommentsUseCaseResponse = Either<
   null,
   {
     questionComments: QuestionComment[]
@@ -16,13 +16,13 @@ type FetchQuestionCommentsQuestionUseCaseResponse = Either<
 >
 
 @Injectable()
-export class FetchQuestionCommentsQuestionUseCase {
+export class FetchQuestionCommentsUseCase {
   constructor(private questionCommentsRepository: QuestionCommentsRepository) {}
 
   async execute({
     questionId,
     page,
-  }: FetchQuestionCommentsQuestionUseCaseRequest): Promise<FetchQuestionCommentsQuestionUseCaseResponse> {
+  }: FetchQuestionCommentsUseCaseRequest): Promise<FetchQuestionCommentsUseCaseResponse> {
     const questionComments = await this.questionCommentsRepository.findManyByQuestionId(
       questionId,
       {
