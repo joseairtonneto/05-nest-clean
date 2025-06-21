@@ -8,7 +8,7 @@ let inMemoryAnswersRepository: InMemoryAnswersRepository
 let sut: FetchQuestionAnswersUseCase
 
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
-describe('Fetch Question Answers Use Case', () => {
+describe('Fetch question answers', () => {
   beforeEach(() => {
     inMemoryAnswerAttachmentsRepository = new InMemoryAnswerAttachmentsRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository(

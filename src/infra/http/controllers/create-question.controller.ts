@@ -8,7 +8,7 @@ import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/crea
 const createQuestionBodySchema = z.object({
   title: z.string(),
   content: z.string(),
-  attachmentsIds: z.string().array(),
+  attachments: z.string().uuid().array(),
 })
 
 const bodyValidationPipe = new ZodValidationPipe(createQuestionBodySchema)
@@ -25,13 +25,13 @@ export class CreateQuestionController {
     @Body(bodyValidationPipe) body: CreateQuestionBodySchema,
   ) {
     const userId = user.sub
-    const { title, content, attachmentsIds } = body
+    const { title, content, attachments } = body
 
     const result = await this.createQuestion.execute({
       authorId: userId,
       title,
       content,
-      attachmentsIds,
+      attachmentsIds: attachments,
     })
 
     if (result.isLeft()) throw new BadRequestException()

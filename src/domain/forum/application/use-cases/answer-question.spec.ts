@@ -7,7 +7,7 @@ let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
 let inMemoryAnswersRepository: InMemoryAnswersRepository
 let sut: AnswerQuestionUseCase
 
-describe('Answer Question Use Case', () => {
+describe('Answer question', () => {
   beforeEach(() => {
     inMemoryAnswerAttachmentsRepository = new InMemoryAnswerAttachmentsRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
@@ -19,7 +19,7 @@ describe('Answer Question Use Case', () => {
 
   it('should be able to create an answer', async () => {
     const result = await sut.execute({
-      instructorId: 'instructor-1',
+      authorId: 'instructor-1',
       questionId: 'question-1',
       content: 'New answer',
       attachmentsIds: ['1', '2'],
@@ -32,5 +32,23 @@ describe('Answer Question Use Case', () => {
       expect.objectContaining({ attachmentId: new UniqueEntityID('1') }),
       expect.objectContaining({ attachmentId: new UniqueEntityID('2') }),
     ])
+  })
+
+  it('should persist attachments when creating a new answer', async () => {
+    const result = await sut.execute({
+      authorId: 'author-1',
+      questionId: 'question-1',
+      content: 'New answer content',
+      attachmentsIds: ['1', '2'],
+    })
+
+    expect(result.isRight()).toBe(true)
+    expect(inMemoryAnswerAttachmentsRepository.items).toHaveLength(2)
+    expect(inMemoryAnswerAttachmentsRepository.items).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ attachmentId: new UniqueEntityID('1') }),
+        expect.objectContaining({ attachmentId: new UniqueEntityID('2') }),
+      ]),
+    )
   })
 })

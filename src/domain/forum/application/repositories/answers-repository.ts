@@ -6,7 +6,6 @@ export abstract class AnswersRepository {
     questionId: string,
     params: PaginationParams,
   ): Promise<Answer[]>
-
   abstract findById(id: string): Promise<Answer | null>
   abstract create(answer: Answer): Promise<void>
   abstract save(answer: Answer): Promise<void>

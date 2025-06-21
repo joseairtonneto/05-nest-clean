@@ -2,7 +2,7 @@ import { BadRequestException, Controller, Get, Param, Query } from '@nestjs/comm
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 import { z } from 'zod'
 import { FetchAnswerCommentsUseCase } from '@/domain/forum/application/use-cases/fetch-answer-comments'
-import { CommentPresenter } from '../presenters/comment-presenter'
+import { CommentWithAuthorPresenter } from '../presenters/comment-with-author-presenter'
 
 const fetchAnswerCommentsQueryParamSchema = z.object({
   page: z.coerce.number().min(1).optional().default(1),
@@ -27,8 +27,8 @@ export class FetchAnswerCommentsController {
 
     if (result.isLeft()) throw new BadRequestException()
 
-    const comments = result.value.answerComments
+    const comments = result.value.comments
 
-    return { comments: comments.map(CommentPresenter.toHTTP) }
+    return { comments: comments.map(CommentWithAuthorPresenter.toHTTP) }
   }
 }

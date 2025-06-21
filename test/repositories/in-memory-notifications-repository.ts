@@ -1,6 +1,6 @@
 import { Notification } from '@/domain/notification/enterprise/entities/notification'
-import { PaginationParams } from '@/core/repositories/pagination-params'
 import { NotificationsRepository } from '@/domain/notification/application/repositories/notifications-repository'
+import { PaginationParams } from '@/core/repositories/pagination-params'
 
 export class InMemoryNotificationsRepository implements NotificationsRepository {
   public items: Notification[] = []

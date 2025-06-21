@@ -8,7 +8,7 @@ import { EditQuestionUseCase } from '@/domain/forum/application/use-cases/edit-q
 const editQuestionBodySchema = z.object({
   title: z.string(),
   content: z.string(),
-  attachmentsIds: z.string().array(),
+  attachments: z.string().uuid().array(),
 })
 
 const bodyValidationPipe = new ZodValidationPipe(editQuestionBodySchema)
@@ -27,14 +27,14 @@ export class EditQuestionController {
     @Body(bodyValidationPipe) body: EditQuestionBodySchema,
   ) {
     const userId = user.sub
-    const { title, content, attachmentsIds } = body
+    const { title, content, attachments } = body
 
     const result = await this.editQuestion.execute({
       questionId,
       authorId: userId,
       title,
       content,
-      attachmentsIds,
+      attachmentsIds: attachments,
     })
 
     if (result.isLeft()) throw new BadRequestException()
