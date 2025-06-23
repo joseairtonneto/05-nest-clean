@@ -5,10 +5,7 @@ import { PrismaAttachmentMapper } from '@/infra/database/prisma/mappers/prisma-a
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 import { Injectable } from '@nestjs/common'
 
-export function makeAttachment(
-  override: Partial<AttachmentProps> = {},
-  id?: UniqueEntityID,
-) {
+export function makeAttachment(override: Partial<AttachmentProps> = {}, id?: UniqueEntityID) {
   const attachment = Attachment.create(
     {
       title: faker.lorem.slug(),
@@ -23,13 +20,13 @@ export function makeAttachment(
 
 @Injectable()
 export class AttachmentFactory {
-	constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {}
 
-	async makePrismaAttachment(data: Partial<AttachmentProps> = {}): Promise<Attachment> {
-		const attachment = makeAttachment(data)
+  async makePrismaAttachment(data: Partial<AttachmentProps> = {}): Promise<Attachment> {
+    const attachment = makeAttachment(data)
 
-		await this.prisma.attachment.create({ data: PrismaAttachmentMapper.toPrisma(attachment) })
+    await this.prisma.attachment.create({ data: PrismaAttachmentMapper.toPrisma(attachment) })
 
-		return attachment
-	}
+    return attachment
+  }
 }

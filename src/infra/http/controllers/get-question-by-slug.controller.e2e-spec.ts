@@ -5,9 +5,9 @@ import { DatabaseModule } from '@/infra/database/database.module'
 import { JwtService } from '@nestjs/jwt'
 import { StudentFactory } from 'test/factories/make-student'
 import { QuestionFactory } from 'test/factories/make-question'
-import request from 'supertest'
 import { AttachmentFactory } from 'test/factories/make-attachment'
 import { QuestionAttachmentFactory } from 'test/factories/make-question-attachment'
+import request from 'supertest'
 import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug'
 
 describe('Get question by slug (E2E)', () => {
